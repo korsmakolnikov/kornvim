@@ -1,7 +1,7 @@
 # Makefile
 
 # Define phony targets to prevent conflicts with files of the same name.
-.PHONY: build-test test clean
+.PHONY: build-test test clean run
 
 # Variable for the Lua script name.
 LUA_SCRIPT := kornvim.lua
@@ -21,7 +21,15 @@ build-test:
 # Launches vim with a specific init.lua file for testing.
 test:
 	@echo "Launching vim with test configuration..."
-	nvim -u $(TEST_DIR)/init.lua
+	KORNVIM_TEST_FLAG=1 nvim --cmd "set runtimepath^=./test" -u $(TEST_DIR)/init.lua
+
+# ---
+# Task 2: "test"
+# Launches vim with a specific init.lua pointing to the default original configuration path
+# Lazy also will point to its default root folder
+run:
+	@echo "Launching vim with test configuration..."
+	nvim --cmd "set runtimepath^=./test" -u $(TEST_DIR)/init.lua
 
 # ---
 # Task 3: "clean"

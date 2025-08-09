@@ -4,10 +4,12 @@ This project provides a simple and effective way to provision your Neovim
 configuration, whether you're setting up a new machine or resetting your
 environment after major changes. It leverages a lightweight Lua script to
 automate the process, ensuring your setup is consistent and ready to go.
+**Kornvim** will generate the code of a minimal Neovim configuration installing
+Lazy and my default configuration plugin (or one of your choice). 
 
 ### Prerequisites
-You need to have **Lua** and **GNU Make** installed on your system to use this
-script.
+You need to have **Lua** and **GNU Make** (**git** is needed to clone Lazy)
+installed on your system to use this script.
 
 ### Getting Started
 
@@ -43,6 +45,17 @@ make test
 
 This command will open Neovim using the `init.lua` file located in your `./test`
 directory, which is ideal for testing new plugins or configuration changes.
+
+#### `run`
+This task will run your test configuration pointing to the default nvim
+configuration directory. This means also you are fetching the plugins in the
+Lazy's default directory where your installed plugins are. This could be useful
+to mix your current configuration and the new one; and also to avoid installing
+the plugins you already have on your machine. 
+
+```bash
+make run
+```
 
 #### `clean`
 The `clean` task is used to remove the test directory and all its contents. This
