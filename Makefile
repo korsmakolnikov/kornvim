@@ -3,6 +3,9 @@
 # Define phony targets to prevent conflicts with files of the same name.
 .PHONY: build-test test clean run
 
+# Variable for the text file to pass to nvim
+TEXT_FILE := 
+
 # Variable for the Lua script name.
 LUA_SCRIPT := kornvim.lua
 
@@ -21,7 +24,7 @@ build-test:
 # Launches vim with a specific init.lua file for testing.
 test:
 	@echo "Launching vim with test configuration..."
-	KORNVIM_TEST_FLAG=1 nvim --cmd "set runtimepath^=./test" -u $(TEST_DIR)/init.lua
+	KORNVIM_TEST_FLAG=1 nvim --cmd "set runtimepath^=./test" -u $(TEST_DIR)/init.lua $1 ${TEXT_FILE}
 
 # ---
 # Task 2: "test"
