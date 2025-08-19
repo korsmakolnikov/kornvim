@@ -26,6 +26,12 @@ local function create_dir(path)
   end
 end
 
+local function get_repo_name(repo_string)
+  -- Il pattern `[^/]+$` cerca una o più occorrenze di qualsiasi carattere
+  -- che non sia uno slash `/` alla fine ($) della stringa.
+  return string.match(repo_string, "[^/]+$")
+end
+
 -- Create the main configuration directory.
 create_dir(config_path)
 
@@ -85,7 +91,12 @@ function M.setup()
     "folke/lazy.nvim",
 
     -- Your custom plugin.
-    "%s",
+    {
+      "%s",
+      config = function()
+        require('%s').setup()
+      end
+    },
 
     -- Add more plugins here.
     -- E.g., "nvim-telescope/telescope.nvim"
@@ -109,7 +120,7 @@ end
 -- Write the content to packages.lua.
 local packages_file = io.open(lua_path .. "packages.lua", "w")
 if packages_file then
-  local packages_configuration = string.format(packages_content, init_plugin)
+  local packages_configuration = string.format(packages_content, init_plugin, get_repo_name(init_plugin))
   if dbg_flag then
     print(packages_configuration)
   end
